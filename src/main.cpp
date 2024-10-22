@@ -39,7 +39,7 @@
 
 #define out
 
-const char* const short_options = "vhw:e:dp:";
+const char* const short_options = "vhw:ke:dp:";
 
 static const char* serviceName = "org.lxqt.QTerminal";
 static const char* ifaceName = "org.lxqt.QTerminal.Process";
@@ -49,6 +49,7 @@ const struct option long_options[] = {
     {"help",    0, nullptr, 'h'},
     {"workdir", 1, nullptr, 'w'},
     {"execute", 1, nullptr, 'e'},
+    {"keepopen", 0, nullptr, 'k'},
     {"drop",    0, nullptr, 'd'},
     {"profile", 1, nullptr, 'p'},
     {nullptr,   0, nullptr,  0}
@@ -62,7 +63,7 @@ QTerminalApp * QTerminalApp::m_instance = nullptr;
     puts("Usage: qterminal [OPTION]...\n");
     puts("  -d,  --drop               Start in \"dropdown mode\" (like Yakuake or Tilda)");
     puts("  -e,  --execute <command>  Execute command instead of shell");
-    puts("  -k,  --keepopen           Keep the terminal open after executing command (must be added before -e)");
+    puts("  -k,  --keepopen           Keep the terminal open after execution of command (add before --execute)");
     puts("  -h,  --help               Print this help");
     puts("  -p,  --profile <name>     Load profile from ~/.config/<name>.conf");
     puts("  -v,  --version            Prints application version and exits");
@@ -103,8 +104,7 @@ void parse_args(int argc, char* argv[], QString& workdir, QStringList & shell_co
                 }
                 break;
             case 'k':
-                // Keep the terminal open after
-                // executing command.
+                system("echo KEEPOPEN");
                 break;
             case 'd':
                 dropMode = true;
