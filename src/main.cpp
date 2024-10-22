@@ -62,6 +62,7 @@ QTerminalApp * QTerminalApp::m_instance = nullptr;
     puts("Usage: qterminal [OPTION]...\n");
     puts("  -d,  --drop               Start in \"dropdown mode\" (like Yakuake or Tilda)");
     puts("  -e,  --execute <command>  Execute command instead of shell");
+    puts("  -k,  --keepopen           Keep the terminal open after executing command (must be added before -e)");
     puts("  -h,  --help               Print this help");
     puts("  -p,  --profile <name>     Load profile from ~/.config/<name>.conf");
     puts("  -v,  --version            Prints application version and exits");
@@ -100,6 +101,10 @@ void parse_args(int argc, char* argv[], QString& workdir, QStringList & shell_co
                     //printf("arg: %d - %s\n", optind, argv[optind]);
                     shell_command << QString::fromLocal8Bit(argv[optind++]);
                 }
+                break;
+            case 'k':
+                // Keep the terminal open after
+                // executing command.
                 break;
             case 'd':
                 dropMode = true;
