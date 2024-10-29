@@ -79,10 +79,11 @@ QTerminalApp * QTerminalApp::m_instance = nullptr;
     exit(code);
 }
 
-void parse_args(int argc, char* argv[], QString& workdir, QStringList & shell_command, out bool& dropMode)
+void parse_args(int argc, char* argv[], QString& workdir, QStringList & shell_command, out bool& dropMode, out bool& keepOpen)
 {
     int next_option = 0;
     dropMode = false;
+    keepOpen = false;
     do{
         next_option = getopt_long(argc, argv, short_options, long_options, nullptr);
         switch(next_option)
@@ -104,7 +105,7 @@ void parse_args(int argc, char* argv[], QString& workdir, QStringList & shell_co
                 }
                 break;
             case 'k':
-                system("echo KEEPOPEN");
+                keepOpen = true;
                 break;
             case 'd':
                 dropMode = true;
@@ -151,7 +152,8 @@ int main(int argc, char *argv[])
     QString workdir;
     QStringList shell_command;
     bool dropMode = false;
-    parse_args(argc, argv, workdir, shell_command, dropMode);
+    bool keepOpen = false;
+    parse_args(argc, argv, workdir, shell_command, dropMode, keepOpen);
 
     #ifdef HAVE_QDBUS
         app->registerOnDbus(dropMode);
