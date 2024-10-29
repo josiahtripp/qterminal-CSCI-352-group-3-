@@ -85,6 +85,8 @@ class Properties
         bool showCloseTabButton;
         bool closeTabOnMiddleClick;
 
+        bool hyperlinkDoubleClick;
+
         bool boldIntense;
 
         bool borderless;
