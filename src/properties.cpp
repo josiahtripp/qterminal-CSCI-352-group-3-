@@ -137,6 +137,9 @@ void Properties::loadSettings()
     showCloseTabButton = m_settings->value(QLatin1String("ShowCloseTabButton"), true).toBool();
     closeTabOnMiddleClick = m_settings->value(QLatin1String("CloseTabOnMiddleClick"), true).toBool();
 
+    /* Hyperlink features */
+    hyperlinkDoubleClick = m_settings->value(QLatin1String("HyerlinkDoubleClick"), true).toBool();
+    
     /* toggles */
     borderless = m_settings->value(QLatin1String("Borderless"), false).toBool();
     tabBarless = m_settings->value(QLatin1String("TabBarless"), false).toBool();
